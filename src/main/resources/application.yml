@@ -1,0 +1,33 @@
+application: Prueba
+server:
+  port: 9090
+
+spring:
+
+  main:
+    allow-circular-references: true
+
+  security:
+    user:
+      name: sa
+      password: 123
+
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:test
+    username: se
+    password: 123
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

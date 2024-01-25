@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Joel",
+    "last_name": "Perez",
+    "mail": "joel@hotmail.com",
+    "phone": "5555555555",
+    "address": "av 1",
+    "password": "123",
+    "roles": "user"
+  },
+  {
+    "id": 2,
+    "name": "Sandy",
+    "last_name": "Perez",
+    "mail": "sandy@hotmail.com",
+    "phone": "1111111111",
+    "address": "av 2",
+    "password": "123",
+    "roles": "user"
+  }
+]

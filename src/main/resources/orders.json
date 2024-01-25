@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "clientId": {
+      "id": 1,
+      "name": "Joel",
+      "lastName": "Perez",
+      "mail": "joel@hotmail.com",
+      "phone": "5555555555",
+      "address": "av 1",
+      "password": "123",
+      "roles": "user"
+    },
+    "amount": 300
+  }
+]

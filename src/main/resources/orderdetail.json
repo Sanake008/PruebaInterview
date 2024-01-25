@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "orderId": {
+      "id": 1,
+      "clientId": {
+        "id": 1,
+        "name": "Joel",
+        "lastName": "Perez",
+        "mail": "joel@hotmail.com",
+        "phone": "5555555555",
+        "address": "av 1",
+        "password": "123",
+        "roles": "user"
+      },
+      "amount": 300
+    },
+    "productId": [{
+      "id": 1,
+      "productName": "zapatos",
+      "description": "zapatos de cuero",
+      "price": 150
+    },{
+      "id": 1,
+      "productName": "zapatos",
+      "description": "zapatos de cuero",
+      "price": 150
+    }],
+    "quantity": 2
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "product_name": "zapatos",
+    "description": "zapatos de cuero",
+    "price": 150
+  },
+  {
+    "id": 2,
+    "product_name": "botas",
+    "description": "boatas de cocodrilo",
+    "price": 350
+  }
+]
