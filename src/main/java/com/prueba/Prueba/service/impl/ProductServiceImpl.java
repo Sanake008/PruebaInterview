@@ -1,12 +1,12 @@
 package com.prueba.Prueba.service.impl;
 
 import com.prueba.Prueba.dto.ProductDTO;
-import com.prueba.Prueba.entity.OrderDetail;
 import com.prueba.Prueba.entity.Product;
 import com.prueba.Prueba.exceptions.BadRequestException;
 import com.prueba.Prueba.exceptions.NotFoundException;
 import com.prueba.Prueba.repository.ProductRepository;
 import com.prueba.Prueba.service.ProductService;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -29,12 +30,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO save(ProductDTO productDTO) throws BadRequestException {
-
+        log.info("Saving product DTO: {}", productDTO.toString());
         Optional<Product> productDTOOptional = productRepository.findById(productDTO.getId());
         if(productDTOOptional.isPresent()){
             throw new BadRequestException("Product already exists!!");
         }
         Product product = modelMapper.map(productDTO, Product.class);
+        log.info("Saving product: {}", product.toString());
         productRepository.save(product);
         return productDTO;
     }

@@ -38,8 +38,11 @@ public class TestController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAuthority('user')")
     public List<OrderDTO> getAll(){
+
+        log.info("Getting all********");
+        List<OrderDTO> orderDTOList = orderService.getAll();
+        log.info("This is my information: {}", orderDTOList.size());
         return orderService.getAll();
     }
 

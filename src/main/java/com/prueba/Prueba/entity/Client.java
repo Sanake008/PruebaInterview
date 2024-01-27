@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Client {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -28,5 +28,7 @@ public class Client {
     private String password;
     @Column(name = "roles")
     private String roles;
+    @OneToOne(mappedBy = "clientId")
+    private Orders orders;
 
 }

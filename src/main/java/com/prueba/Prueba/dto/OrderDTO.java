@@ -16,7 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class OrderDTO {
+    @JsonProperty("id")
     private Integer id;
+    @JsonProperty("clientId")
     private Client clientId;
+    @JsonProperty("amount")
     private Double amount;
 }

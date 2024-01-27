@@ -71,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getAll() {
+        log.info("*********************");
         return orderRepository.findAll().stream().map(o->OrderDTO.builder()
                 .id(o.getId())
                 .clientId(o.getClientId())

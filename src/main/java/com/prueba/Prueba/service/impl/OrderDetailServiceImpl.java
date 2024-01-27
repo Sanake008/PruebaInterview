@@ -1,7 +1,7 @@
 package com.prueba.Prueba.service.impl;
 
 import com.prueba.Prueba.dto.OrderDetailDTO;
-import com.prueba.Prueba.entity.OrderDetail;
+import com.prueba.Prueba.entity.Detail;
 import com.prueba.Prueba.exceptions.BadRequestException;
 import com.prueba.Prueba.exceptions.NotFoundException;
 import com.prueba.Prueba.repository.OrderDetailRepository;
@@ -32,48 +32,54 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public OrderDetailDTO save(OrderDetailDTO order) throws BadRequestException {
         log.info("Saving new OrderDetail: {}", order.toString());
-        Optional<OrderDetail> optionalOrderDetail = orderDetailRepository.findById(order.getId());
+        /*Optional<Detail> optionalOrderDetail = orderDetailRepository.findById(order.getId());
         if(optionalOrderDetail.isPresent()){
             throw new BadRequestException("Order Already Exists");
-        }
-
-        OrderDetail orderDetail = modelMapper.map(order, OrderDetail.class);
+        }*/
+        log.info("Hearrrrrrrrr");
+        Detail orderDetail = modelMapper.map(order, Detail.class);
+        log.info("Saving new OrderDetail: {}", orderDetail.toString());
         orderDetailRepository.save(orderDetail);
+        log.info("Order Detail Saved");
 
         return order;
     }
 
     @Override
     public OrderDetailDTO updateWhole(OrderDetailDTO orderDTO) throws BadRequestException {
-        Optional<OrderDetail> optionalOrderDetail = orderDetailRepository.findById(orderDTO.getId());
+        Optional<Detail> optionalOrderDetail = orderDetailRepository.findById(orderDTO.getId());
         if(optionalOrderDetail.isEmpty()){
             throw new BadRequestException("Order detail doesn't exist!!");
         }
-        OrderDetail orderDetail = modelMapper.map(orderDTO,OrderDetail.class);
+        Detail orderDetail = modelMapper.map(orderDTO,Detail.class);
         orderDetailRepository.save(orderDetail);
         return orderDTO;
     }
 
     @Override
     public OrderDetailDTO getOrderDetail(Integer id) throws NotFoundException {
-        OrderDetail orderDetail = orderDetailRepository.findById(id).orElseThrow(()->new NotFoundException("Order detail not found"));
+        Detail orderDetail = orderDetailRepository.findById(id).orElseThrow(()->new NotFoundException("Order detail not found"));
         OrderDetailDTO orderDetailDTO = modelMapper.map(orderDetail, OrderDetailDTO.class);
         return orderDetailDTO;
     }
 
     @Override
-    public List<OrderDetailDTO> getAll() {
-        return orderDetailRepository.findAll().stream().map(od-> OrderDetailDTO.builder()
+    public List<Detail> getAll() {
+        log.info("Retreiving all order detail!!");
+        List<Detail> orderDetail = orderDetailRepository.findAll();
+        orderDetail.stream().forEach(od->log.info(od.toString()));
+        log.info(orderDetail.size()+"----------------------------------");
+        return orderDetailRepository.findAll();/*.stream().map(od-> OrderDetailDTO.builder()
                 .orderId(od.getOrderId())
                 .id(od.getId())
                 .productId(od.getProductId())
                 .quantity(od.getQuantity())
-                .build()).collect(Collectors.toList());
+                .build()).collect(Collectors.toList());*/
     }
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        OrderDetail orderDetail = orderDetailRepository.findById(id).orElseThrow(()->new NotFoundException("Order detail not found"));
+        Detail orderDetail = orderDetailRepository.findById(id).orElseThrow(()->new NotFoundException("Order detail not found"));
         orderDetailRepository.delete(orderDetail);
     }
 }

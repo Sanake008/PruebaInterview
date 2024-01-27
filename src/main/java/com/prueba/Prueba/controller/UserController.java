@@ -1,6 +1,7 @@
 package com.prueba.Prueba.controller;
 
 import com.prueba.Prueba.dto.ClientDTO;
+import com.prueba.Prueba.dto.DBData;
 import com.prueba.Prueba.dto.OrderDTO;
 import com.prueba.Prueba.dto.ProductDTO;
 import com.prueba.Prueba.entity.AuthRequest;
@@ -28,17 +29,10 @@ public class UserController {
     private UserInfoService service;
 
     @Autowired
-    ClientServiceImpl clientService;
-    @Autowired
-    ProductServiceImpl productService;
-    @Autowired
-    OrderDetailServiceImpl orderDetailService;
-    @Autowired
-    OrderServiceImpl orderService;
-
-    @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    PopulationDBServiceImpl populationDBService;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -52,69 +46,6 @@ public class UserController {
         return service.addUser(client);
     }
 
-    @GetMapping("/user/getAll")
-    @PreAuthorize("hasAuthority('user')")
-    public List<ClientDTO> getAllClients() {
-        return clientService.getAll();
-    }
-
-    @PostMapping("/order/create")
-    @PreAuthorize("hasAuthority('user')")
-    public OrderDTO createOrder(@RequestBody OrderDTO request) throws BadRequestException {
-        log.info("Creating orders");
-        return orderService.save(request);
-    }
-
-    @PutMapping("/order/updateWhole")
-    @PreAuthorize("hasAuthority('user')")
-    public OrderDTO updateOrder(@RequestBody OrderDTO request) throws BadRequestException {
-        return orderService.updateWhole(request);
-    }
-
-    @GetMapping("/order/getByCustomer")
-    @PreAuthorize("hasAuthority('user')")
-    public OrderDTO getByCostumer(@RequestParam(name = "id") Integer id) throws NotFoundException {
-        return orderService.getOrder(id);
-    }
-
-    @GetMapping("/order/getAll")
-    @PreAuthorize("hasAuthority('user')")
-    public List<OrderDTO> getAllOrders(){
-        return orderService.getAll();
-    }
-
-    @DeleteMapping("/order/delete")
-    @PreAuthorize("hasAuthority('user')")
-    public void deleteOrder(@RequestParam Integer id) throws NotFoundException {
-        orderService.deleteOrder(id);
-    }
-
-    @PostMapping("/product/create")
-    @PreAuthorize("hasAuthority('user')")
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) throws BadRequestException {
-        return productService.save(productDTO);
-    }
-
-    @PutMapping("/product/update")
-    public ProductDTO updateProduct(@RequestBody ProductDTO productDTO) throws BadRequestException {
-        return productService.updateWhole(productDTO);
-    }
-
-    @GetMapping("/product/get")
-    public ProductDTO getProductById(@RequestParam(name = "id") Integer id) throws NotFoundException {
-        return productService.getProduct(id);
-    }
-
-    @GetMapping("/product/getAll")
-    public List<ProductDTO> getAllProducts(){
-        return  productService.getAll();
-    }
-
-    @DeleteMapping("/product/delete")
-    public void deleteProduct(@RequestParam (name = "id") Integer id) throws NotFoundException {
-        productService.delete(id);
-    }
-
     @PostMapping("/generateToken")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -123,6 +54,12 @@ public class UserController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+
+    @PostMapping("/populateDb")
+    public String populateDB(@RequestBody DBData dbData) throws BadRequestException {
+        log.info("Starting process!!");
+        return populationDBService.populate(dbData);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.prueba.Prueba.controller;
 
 import com.prueba.Prueba.dto.OrderDetailDTO;
+import com.prueba.Prueba.entity.Detail;
 import com.prueba.Prueba.exceptions.BadRequestException;
 import com.prueba.Prueba.exceptions.NotFoundException;
 import com.prueba.Prueba.service.impl.OrderDetailServiceImpl;
@@ -31,8 +32,7 @@ public class OderDetailController {
         return orderDetailService.getOrderDetail(id);
     }
     @GetMapping("/getAll")
-
-    public List<OrderDetailDTO> getAll(){
+    public List<Detail> getAll(){
         return  orderDetailService.getAll();
     }
     @DeleteMapping("/delete")

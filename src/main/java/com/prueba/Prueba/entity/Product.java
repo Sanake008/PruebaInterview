@@ -11,9 +11,10 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "product_name")
     private String productName;
@@ -21,4 +22,7 @@ public class Product {
     private String description;
     @Column(name = "price")
     private Double price;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "order_detail")
+    private Detail detail;
 }
